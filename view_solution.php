@@ -69,7 +69,7 @@
  		
  		// first check if ilms learner metadata table exists
  		$dbman = $DB->get_manager();
- 		if($dbman->table_exists("ilms_learnermeta")) {
+ 		if($dbman->table_exists("block_user_preferences_learnermeta")) {
 	 		// build the learner metadata object to update/store in database
 	 		$lmdo = new object(); // LearnerMetaDataObject
 	 		$lmdo->userid = $USER->id;
@@ -77,63 +77,63 @@
 	 		
 	 		switch($solution->solutiontitle) {
 	 			case "active-reflective-high":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_processing"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_processing"));
 	 				$lmdo->value = 0.1;
 	 				break;
 	 			case "active-reflective-neutral":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_processing"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_processing"));
 	 				$lmdo->value = 0.5;
 	 				break;
 	 			case "active-reflective-low":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_processing"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_processing"));
 	 				$lmdo->value = 0.9;
 	 				break;
 	 			case "sensing-intuitive-high":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_perception"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_perception"));
 	 				$lmdo->value = 0.1;
 	 				break;
 	 			case "sensing-intuitive-neutral":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_perception"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_perception"));
 	 				$lmdo->value = 0.5;
 	 				break;
 	 			case "sensing-intuitive-low":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_perception"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_perception"));
 	 				$lmdo->value = 0.9;
 	 				break;
 	 			case "visual-verbal-high":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_input"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_input"));
 	 				$lmdo->value = 0.1;
 	 				break;
 	 			case "visual-verbal-neutral":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_input"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_input"));
 	 				$lmdo->value = 0.5;
 	 				break;
 	 			case "visual-verbal-low":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_input"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_input"));
 	 				$lmdo->value = 0.9;
 	 				break;
 	 			case "sequential-global-high":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_perspective"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_perspective"));
 	 				$lmdo->value = 0.9;
 	 				break;
 	 			case "sequential-global-neutral":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_perspective"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_perspective"));
 	 				$lmdo->value = 0.5;
 	 				break;
 	 			case "sequential-global-low":
-	 				$lmdo->definitionid = $DB->get_field("ilms_learnermeta_definitions", "id", array("attribute" => "learningstyle_perspective"));
+	 				$lmdo->definitionid = $DB->get_field("block_user_preferences_learnermeta_definitions", "id", array("attribute" => "learningstyle_perspective"));
 	 				$lmdo->value = 0.1;
 	 				break;	
 	 		}
 	 		
 	 		// push the learner meta data object to database
-	 		if($learnerMeta = $DB->get_record("ilms_learnermeta", array("userid" => $lmdo->userid, "definitionid" => $lmdo->definitionid))) {
+	 		if($learnerMeta = $DB->get_record("block_user_preferences_learnermeta", array("userid" => $lmdo->userid, "definitionid" => $lmdo->definitionid))) {
 	 			// update
 	 			$lmdo->id = $learnerMeta->id;
-	 			$DB->update_record("ilms_learnermeta", $lmdo);
+	 			$DB->update_record("block_user_preferences_learnermeta", $lmdo);
 	 		} else {
 	 			// insert
-	 			$DB->insert_record("ilms_learnermeta", $lmdo);
+	 			$DB->insert_record("block_user_preferences_learnermeta", $lmdo);
 	 		}
 	 	}
     } else {
